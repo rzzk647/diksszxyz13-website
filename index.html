@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway - RZZK Reall</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: url('https://img1.pixhost.to/images/6578/612373338_ramaztore.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            color: #ff6b6b;
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        
+        .payment-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .payment-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .payment-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #ffa502);
+            border-radius: 3px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+        
+        .payment-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            width: 300px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .payment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .payment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .payment-icon {
+            font-size: 30px;
+            margin-right: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .dana-icon {
+            background: linear-gradient(135deg, #00a3e0, #0085ca);
+            color: white;
+        }
+        
+        .gopay-icon {
+            background: linear-gradient(135deg, #00aa13, #008f0e);
+            color: white;
+        }
+        
+        .ovo-icon {
+            background: linear-gradient(135deg, #4c2a86, #3a1f6b);
+            color: white;
+        }
+        
+        .qris-icon {
+            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+            color: white;
+        }
+        
+        .payment-name {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .payment-details {
+            margin-top: 15px;
+        }
+        
+        .payment-number {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .copy-btn i {
+            margin-right: 5px;
+        }
+        
+        .qris-container {
+            text-align: center;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .qris-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .qris-img {
+            max-width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .qris-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .instructions {
+            margin-top: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 2s ease;
+        }
+        
+        .instructions-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .steps {
+            list-style-type: none;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, #ff6b6b, #ffa502);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .step:nth-child(1)::before {
+            content: '1';
+        }
+        
+        .step:nth-child(2)::before {
+            content: '2';
+        }
+        
+        .step:nth-child(3)::before {
+            content: '3';
+        }
+        
+        .step:nth-child(4)::before {
+            content: '4';
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 14px;
+            opacity: 0.8;
+            animation: fadeIn 2.5s ease;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+            z-index: -1;
+        }
+        
+        @media (max-width: 768px) {
+            .payment-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .payment-card {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .payment-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">
+                <i class="fas fa-wallet"></i>
+                <span> DEV WEB RZZK REALL STORE</span>
+            </a>
+        </header>
+        
+        <div class="payment-container">
+            <h1 class="payment-title">Pilih Metode Pembayaran</h1>
+            
+            <div class="payment-methods">
+                <div class="payment-card">
+                    <div class="payment-header">
+                        <div class="payment-icon dana-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3 class="payment-name">DANA</h3>
+                    </div>
+                    <div class="payment-details">
+                        <p class="payment-number">088991437843</p>
+                        <button class="copy-btn" onclick="copyToClipboard('083850789531')">
+                            <i class="fas fa-copy"></i> Salin Nomor
+                        </button>
+                    </div>
+                </div>
+                <div class="payment-card">
+                    <div class="payment-header">
+                        <div class="payment-icon gopay-icon">
+                            <i class="fab fa-google-pay"></i>
+                        </div>
+                        <h3 class="payment-name">GOPAY</h3>
+                    </div>
+                    <div class="payment-details">
+                        <p class="payment-number">088991437843</p>
+                        <button class="copy-btn" onclick="copyToClipboard('')">
+                             <i class="fas fa-copy"></i> 
+                            </i>SalinNomor
+                        </button>
+                    </div>
+                </div>
+               
+               <div class="payment-card">
+                    <div class="payment-header">
+                        <div class="payment-icon Shopeepay-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="payment-name">SHOPEEPAY</h3>
+                    </div>
+                    <div class="payment-details">
+                        <p class="payment-number">088991437843</p>
+                        <button class="copy-btn" onclick="copyToClipboard('088991437843')">
+                            <i class="fas fa-copy"></i> Salin Nomor
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+                        <button class="copy-btn" onclick="copyToClipboard('')">
+                             <i class="fas fa-copy"></i> 
+                            </i>SalinNomor
+                        </button>
+                    </div>
+                </div>
+                
+            <div class="qris-container">
+                <h3 class="qris-title">Atau minta QRIS kepada admin</h3>
+                <img src="MINTA KE ADMIN KARENA GK ADA ALL PAY" alt="QRIS Payment" class="qris-img floating">
+              </div>
+            
+            <div class="instructions">
+                <h3 class="instructions-title">Cara Pembayaran</h3>
+                <ul class="steps">
+                    <li class="step">Pilih metode pembayaran yang Anda inginkan (DANA, GOPAY, Shopeepay, atau QRIS)</li>
+                    <li class="step">Salin nomor atau scan QR code untuk melakukan pembayaran</li>
+                    <li class="step">Lakukan pembayaran sesuai dengan nominal yang diminta</li>
+                    <li class="step">Kirim bukti pembayaran ke no wa admin tama untuk konfirmasi pembayaran<li class="step"
+                    >Kalo mau bikin web hubungi ya web banyak:6283130646893
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 rzzk Store Reall. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Nomor berhasil disalin: ' + text);
+                createConfetti();
+            }, function() {
+                alert('Gagal menyalin nomor');
+            });
+        }
+        
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#ffa502', '#70a1ff', '#7bed9f', '#fffa65'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.opacity = '1';
+                confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                
+                document.body.appendChild(confetti);
+                
+                const animationDuration = Math.random() * 3 + 2;
+                
+                confetti.animate([
+                    { top: -10 + 'px', opacity: 1 },
+                    { top: 100 + 'vh', opacity: 0 }
+                ], {
+                    duration: animationDuration * 1000,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.9, 1)'
+                });
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, animationDuration * 1000);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animasi tambahan saat halaman dimuat
+            const cards = document.querySelectorAll('.payment-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+    </script>
+</body>
+</html>
+
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SELL BY © diksszxyz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: #0d0d0d;
+      color: #00ffcc;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #00ffff;
+      border-bottom: 1px solid #00ffff;
+      padding-bottom: 5px;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    li::before {
+      content: "➥ ";
+      color: #00ffcc;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .highlight {
+      background-color: #111;
+      padding: 10px;
+      border-left: 4px solid #00ffcc;
+    }
+    .contact {
+      margin-top: 40px;
+      font-size: 1.1em;
+    }
+    .note {
+      font-style: italic;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>𝐒𝐄𝐋𝐋 𝐁𝐘 © diksszxyz</h1>
+  
+  <div class="section">
+    <h2>𝗣𝗥𝗢𝗗𝗨𝗞 & 𝗝𝗔𝗦𝗔</h2>
+    <ul>
+      <li>𝐏𝐀𝐍𝐄𝐋 𝟏𝐆𝐁-𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃</li>
+      <li>𝐑𝐄𝐒𝐄𝐋𝐄𝐑 𝐏𝐀𝐍𝐄𝐋</li>
+      <li>𝐀𝐃𝐌𝐈𝐍 𝐏𝐀𝐍𝐄𝐋</li>
+      <li>𝐎𝐖𝐍𝐄𝐑 𝐏𝐀𝐍𝐄𝐋</li>
+      <li>𝐏𝐓 𝐏𝐀𝐍𝐄𝐋</li>
+      <li>𝐓𝐀𝐍𝐆𝐀𝐍 𝐊𝐀𝐍𝐀𝐍 𝐏𝐀𝐍𝐄𝐋</li>
+      <li>𝐕𝐏𝐒 𝐁𝐔𝐀𝐓 𝐏𝐀𝐍𝐄𝐋</li>
+      <li>𝗝𝗔𝗦𝗔 𝗘𝗡𝗖 𝗛𝗔𝗥𝗗 𝗦𝗖𝗥𝗜𝗣𝗧</li>
+      <li>𝗦𝗖𝗥𝗜𝗣𝗧 𝗘𝗡𝗖 𝗛𝗔𝗥𝗗</li>
+      <li>𝗝𝗔𝗦𝗔 𝗝𝗔𝗗𝗜 𝗕𝗢𝗧</li>
+      <li>𝗝𝗔𝗦𝗔 𝗦𝗨𝗡𝗧𝗜𝗞 𝗦𝗢𝗦𝗠𝗘𝗗</li>
+      <li>𝐍𝐎𝐌𝐄𝐑 𝐖𝐀 𝐍𝐄𝐆𝐀𝐑𝐀 𝐋𝐔𝐀𝐑</li>
+      <li>𝐍𝐎𝐌𝐄𝐑 𝐔𝐍𝐋𝐈 𝐕𝐄𝐑𝐈𝐅𝐈𝐊𝐀𝐒𝐈</li>
+      <li>𝐀𝐋𝐋 𝐀𝐏𝐊 𝐍𝐎𝐌𝐄𝐑 𝐋𝐔𝐀𝐑</li>
+      <li>𝐉𝐀𝐒𝐀 𝐁𝐔𝐆 𝐍𝐎 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏</li>
+      <li>𝐒𝐂𝐑𝐈𝐏𝐓 (𝐒𝐂) 𝐁𝐔𝐆 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏</li>
+      <li>𝗝𝗔𝗦𝗔 𝗥𝗘𝗡𝗔𝗠𝗘 𝗦𝗖</li>
+      <li>𝗝𝗔𝗦𝗔 𝗣𝗘𝗠𝗕𝗨𝗔𝗧𝗔𝗡 𝗦𝗖 𝗕𝗨𝗚</li>
+      <li>𝗝𝗔𝗦𝗔 𝗣𝗘𝗠𝗕𝗨𝗔𝗧𝗔𝗡 𝗦𝗖 𝗚𝗥𝗨𝗣 𝗗𝗟𝗟</li>
+      <li>𝐅𝐔𝐍𝐂𝐓𝐈𝐎𝐍 𝐒𝐂𝐑𝐈𝐏𝐓</li>
+      <li>𝐌𝐔𝐑𝐁𝐔𝐆(𝐌𝐔𝐑𝐈𝐃 𝐁𝐔𝐆)</li>
+      <li>𝐀𝐃𝐌𝐈𝐍 𝐌𝐔𝐑𝐁𝐔𝐆</li>
+      <li>𝐎𝐖𝐍𝐄𝐑 𝐌𝐔𝐑𝐁𝐔𝐆</li>
+      <li>𝐌𝐔𝐑𝐍𝐎𝐊(𝐌𝐔𝐑𝐈𝐃 𝐍𝐎𝐊𝐎𝐒)</li>
+      <li>𝐉𝐀𝐒𝐀 𝗣𝗔𝗦𝗔𝗡𝗚 𝐊𝐄𝐘 𝐒𝐂𝐑𝐈𝐏𝐓</li>
+      <li>𝗝𝗔𝗦𝗔 𝗣𝗔𝗦𝗔𝗡𝗚 𝗘𝗡𝗖</li>
+      <li>𝗦𝗘𝗪𝗔 𝗕𝗢𝗧 𝗕𝗨𝗚</li>
+      <li>𝗦𝗘𝗪𝗔 𝗕𝗢𝗧 𝗚𝗥𝗨𝗣</li>
+      <li>𝐃𝐋𝐋 (𝐃𝐀𝐍 𝐋𝐀𝐈𝐍 𝐋𝐀𝐈𝐍)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📱 NOKOS 📱</h2>
+    <div class="highlight">
+      <p>🇮🇩 Indonesia: 5k | 🇺🇸 Amerika: 110k | 🇯🇵 Jepang: 156k</p>
+      <p>Dan banyak negara lainnya...</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>⚡ VPS HIGH QUALITY ⚡</h2>
+    <ul>
+      <li>RAM 8GB CORE 4 ➥ Rp35.000</li>
+      <li>RAM 16GB CORE 4 ➥ Rp45.000</li>
+      <li>RAM 16GB CORE 8 ➥ Rp65.000</li>
+      <li>RAM 32GB CORE 8 ➥ Rp80.000</li>
+    </ul>
+    <div class="highlight">
+      <p>Free Panel, Wings, SC, Subdomain</p>
+      <p>Garansi 15 hari (1x replace)</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>💬 Kontak</h2>
+    <p class="contact">🪀 WhatsApp: <a href="https://wa.me/6288991437843" style="color:#00ffcc;">6288991437843</a></p>
+    <p class="note">Tanya-tanya dulu bagi yang belum paham.</p>
+  </div>
+</body>
+</html>
